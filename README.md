@@ -1,5 +1,2 @@
-# Approach of a Expo-Router Authentication (Tabs included)
-
-**Included Dependencies:**
-
-- `expo-secure-store`
+# Expo-Router Simple Authentication
+Test for Logis apps
