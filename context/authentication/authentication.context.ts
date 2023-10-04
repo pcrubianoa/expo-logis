@@ -1,7 +1,7 @@
 import React from "react";
 
 const AuthContext = React.createContext<{
-  signIn: () => void;
+  signIn: (u:string,p:string) => void;
   signOut: () => void;
   session?: string | null;
   isLoading: boolean;

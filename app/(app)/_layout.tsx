@@ -1,13 +1,16 @@
 import { useSession } from "@/context/authentication/authentication.context";
 import { Redirect, Stack } from "expo-router";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 export default function AppLayout() {
   const values = useSession();
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (values?.isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>);
   }
 
   // Only require authentication within the (app) group's layout as users

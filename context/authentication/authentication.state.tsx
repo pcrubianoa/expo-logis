@@ -9,9 +9,24 @@ export function SessionProvider(props: { children: React.ReactNode }) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => {
-          // Perform sign-in logic here
-          setSession("xxx");
+        signIn: async (user,pass) => {
+
+          const response = await fetch("https://api.logis.com.co/v1/secure", {
+            method: 'POST',
+            body: JSON.stringify({
+                'user': user,
+                'pass': pass,
+                'application': 'bares'
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                  console.log("ok");
+                  setSession("xxx");
+                }
+              })
+
           console.log("guardar apiKey");
           router.push("/one");
         },
