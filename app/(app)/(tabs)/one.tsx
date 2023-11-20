@@ -9,9 +9,9 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Página principal</Text>
       <Pressable onPress={values?.signOut} style={{ padding: 10 }}>
-        <Text>Logout</Text>
+        <Text>Cerrar Sessión</Text>
       </Pressable>
       <View
         style={styles.separator}

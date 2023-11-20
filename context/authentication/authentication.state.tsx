@@ -2,6 +2,7 @@ import React from "react";
 import { useStorageState } from "@/utils/storage-utils";
 import AuthContext from "./authentication.context";
 import { router } from "expo-router";
+import { getDataAPI } from 'services/fetch.service';
 
 export function SessionProvider(props: { children: React.ReactNode }) {
   const [[isLoading, session], setSession] = useStorageState("session");
@@ -11,28 +12,17 @@ export function SessionProvider(props: { children: React.ReactNode }) {
       value={{
         signIn: async (user,pass) => {
 
-          const response = await fetch("https://api.logis.com.co/v1/secure", {
-            method: 'POST',
-            body: JSON.stringify({
-                'user': user,
-                'pass': pass,
-                'application': 'bares'
-            }),
-        })
-            .then(res => res.json())
+          getDataAPI('secure', 'bares', {'user':user, 'pass': pass})
             .then(data => {
-                if (data.success) {
-                  console.log("ok");
-                  setSession("xxx");
-                }
-              })
+              if (data.success) {
+                setSession(data.apiKey);
+              }
+            });
 
-          console.log("guardar apiKey");
           router.push("/one");
         },
         signOut: () => {
           setSession(null);
-          console.log("borrar apiKey");
         },
         session,
         isLoading,
