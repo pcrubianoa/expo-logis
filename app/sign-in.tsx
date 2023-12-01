@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, TextInput, Image, TouchableOpacity } from "react
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import { router } from "expo-router";
+import { router, Redirect } from "expo-router";
 import { useSession } from "@/context/authentication/authentication.context";
 import { useRef, useState } from "react";
 
@@ -12,6 +12,10 @@ export default function LoginScreen() {
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
+
+  if(values?.session) {
+    return <Redirect href="/one" />;
+  }
 
   return (
     <View style={styles.container}>
