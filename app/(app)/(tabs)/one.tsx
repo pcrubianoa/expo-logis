@@ -5,9 +5,6 @@ import { useSession } from "@/context/authentication/authentication.context";
 import { getDataAPI } from "@/services/fetch.service";
 import { useEffect, useState } from "react";
 
-import * as SQLite from 'expo-sqlite';
-const db = SQLite.openDatabase('mydb.db');
-
 export default function TabOneScreen() {
   const values = useSession();
   const [configuracionPos, setConfiguracionPos] = useState<any>(null);
@@ -20,48 +17,6 @@ export default function TabOneScreen() {
         const configPos = response.data[0].establecimiento;
         //console.log('configuracion_pos: ', configPos);
         setConfiguracionPos(configPos);
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          'CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);',
-          [],
-          () => console.log('Tabla creada con éxito'),
-        );
-      });
-
-      // db.transaction((tx) => {
-      //   tx.executeSql(
-      //     "SELECT name FROM sqlite_master WHERE type='table';",
-      //     [],
-      //     (_, { rows }) => {
-      //       for (let i = 0; i < rows.length; i++) {
-      //         console.log(`Tabla encontrada: ${rows.item(i).name}`);
-      //       }
-      //     },
-      //   );
-      // });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          'INSERT INTO items (name) values ("Primero");',
-          [],
-          () => console.log('Insertar Dato'),
-        );
-      });
-
-      db.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * from items',
-          [],
-          (_, { rows }) => {
-            // Manejar los resultados de la consulta
-            for (let i = 0; i < rows.length; i++) {
-              const item = rows.item(i);
-              console.log('item: ', item);
-            }
-          },
-        );
       });
   }, [values?.session]); // Agrega values?.session como dependencia para reejecutar useEffect si cambia
 
